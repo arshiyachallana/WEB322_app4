@@ -39,7 +39,7 @@ app.use(express.static('js'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 var store = new MongoDBStore({
-  uri: 'mongodb+srv://Jkaur5370:Jasprit%401@web322jas-2231.lqfqtpc.mongodb.net/test',
+  uri: 'mongodb+srv://Jkaur5370:Jasprit%401@web322jas-2231.lqfqtpc.mongodb.net/web322Jas-2231',
   collection: 'users'
 });
 store.on('error', function (error) {

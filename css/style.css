@@ -63,3 +63,9 @@ nav {
   color: #b1bdca;
   text-decoration: none;
 }
+.error-message {
+  font-style: italic;
+  margin-bottom: auto;
+  font-size: small;
+  color: rgba(249, 24, 24, 0.895);
+}

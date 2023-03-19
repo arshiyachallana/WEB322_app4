@@ -20,9 +20,7 @@ element.addEventListener("submit", function (event) {
         })
     }).then((data) => data.json()).then((data) => {
         if (data?.status == 200) {
-            localStorage.setItem('userName', `${fName} ${lName}`);
-            localStorage.setItem('userEmail', email)
-            window.location.href = '/welcome';
+            window.location.href = '/log-in';
             return
         } else {
             const fNameErr = document.getElementById('fName-error');
