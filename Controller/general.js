@@ -109,7 +109,7 @@ const generalController = {
             title: 'Log In'
         });
     },
-    logInPost: (req, res) => {
+    logInPost: async (req, res) => {
         const email = req?.body?.email;
         const password = req?.body?.password;
         var emailError = ""
@@ -125,10 +125,32 @@ const generalController = {
             passwordError = 'Password must be between 8 to 12 characters and contain at least one lowercase letter, uppercase letter, number, and symbol';
         }
         if (emailError == "" && passwordError == "") {
-            res.send({
-                status: 200,
-                message: "success !!"
-            });
+            const user = await userMode.findOne({ user_email: email })
+            if (user) {
+                bcrypt.compare(password, user?.password, function (err, bcrypt) {
+                    if (bcrypt) {
+                        req.session.user = user
+                        res.send({
+                            status: 200,
+                            message: "success !!"
+                        });
+                    } else {
+                        res.send({
+                            status: 400,
+                            message: "error !!",
+                            email: emailError,
+                            password: "Invalid Password",
+                        });
+                    }
+                });
+            } else {
+                res.send({
+                    status: 400,
+                    message: "error !!",
+                    email: "Invalid email !",
+                    password: passwordError,
+                });
+            }
         } else {
             res.send({
                 status: 400,
