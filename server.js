@@ -54,6 +54,10 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }));
+app.use((req, res, next) => {
+  res.locals.authenticated = req.session.authenticated;
+  next();
+});
 app.get('/', generalController.home);
 app.get('/welcome', generalController.welcome);
 app.get('/sign-up', generalController.signUp);

@@ -10,9 +10,12 @@
     <ul class="navbar-nav ml-auto">
       {{#navLink "/"}}Home{{/navLink}}
       {{#navLink "/rentals"}}Rentals{{/navLink}}
+      {{#if authenticated}}
       {{#navLink "/sign-up"}}Sign Up{{/navLink}}
       {{#navLink "/log-in"}}Log In{{/navLink}}
-
+      {{else}}
+      {{#navLink "/log-out"}}Log Out{{/navLink}}
+      {{/if}}
       </ul>
   </div>
 </nav>
