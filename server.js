@@ -15,10 +15,22 @@ import * as dotenv from 'dotenv';
 import sgMail from '@sendgrid/mail';
 import generalController from './Controller/general.js';
 import rentalsController from './Controller/rentals.js';
+import session from 'express-session';
+import { default as connectMongoDBSession } from 'connect-mongodb-session';
+const MongoDBStore = connectMongoDBSession(session);
 dotenv.config()
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const app = express();
-app.engine('.hbs', engine({ extname: '.hbs' }));
+app.engine('.hbs', engine({
+  extname: '.hbs',
+  helpers: {
+    navLink: function (url, options) {
+      return '<li' +
+        ((url == app.locals.activeRoute) ? ' class="nav-item active" ' : ' class="nav-item"') +
+        '><a class="nav-link" href="' + url + '">' + options.fn(this) + '</a></li>';
+    },
+  }
+}));
 app.set('view engine', '.hbs');
 app.set('views', './views');
 app.use(express.static('images'))
@@ -26,8 +38,22 @@ app.use(express.static('css'))
 app.use(express.static('js'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
-
-
+var store = new MongoDBStore({
+  uri: 'mongodb+srv://Jkaur5370:Jasprit%401@web322jas-2231.lqfqtpc.mongodb.net/test',
+  collection: 'users'
+});
+store.on('error', function (error) {
+  console.log("store error---", error);
+})
+app.use(session({
+  secret: 'This is a secret',
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24
+  },
+  store: store,
+  resave: false,
+  saveUninitialized: true
+}));
 app.get('/', generalController.home);
 app.get('/welcome', generalController.welcome);
 app.get('/sign-up', generalController.signUp);

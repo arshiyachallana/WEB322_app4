@@ -1,47 +1,27 @@
-<div class="sign-up-main container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-      <div class="card">
-        <div class="card-header">{{title}}</div>
-        <div class="card-body">
-          <form id="sign-up">
-            <div class="form-group mb-2 row">
-              <label for="fName" class="col-md-4 col-form-label text-md-right">First Name</label>
-              <div class="col-md-6">
-                <input id="fName" type="text" class="form-control" name="fName" autofocus>
-                <p id="fName-error" class="error-message"></p>
-              </div>
-            </div>
-            <div class="form-group mb-2 row">
-              <label for="lName" class="col-md-4 col-form-label text-md-right">Last Name</label>
-              <div class="col-md-6">
-                <input id="lName" type="text" class="form-control" name="lName">
-                <p id="lName-error" class="error-message"></p>
-              </div>
-            </div>
-            <div class="form-group mb-2 row">
-              <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
-              <div class="col-md-6">
-                <input id="email" type="text" class="form-control" name="email">
-                <p id="email-error" class="error-message"></p>
-              </div>
-            </div>
-            <div class="form-group mb-2 row">
-              <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
-              <div class="col-md-6">
-                <input id="password" type="password" class="form-control" name="password">
-                <p id="password-error" class="error-message"></p>
-              </div>
-            </div>
-            <div class="form-group row mb-0">
-              <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">Register</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
+<div class="container my-5">
+  <form class="signup-form" id="sign-up">
+    <h1>Sign Up</h1>
+    <div class="form-group">
+      <label for="fName">First Name:</label>
+      <input id="fName" type="text" name="fName" autofocus>
+      <p id="fName-error" class="error-message"></p>
     </div>
-  </div>
+    <div class="form-group">
+      <label for="lName">Last Name:</label>
+      <input id="lName" type="text" class="form-control" name="lName">
+      <p id="lName-error" class="error-message"></p>
+    </div>
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input id="email" type="text" name="email">
+      <p id="email-error" class="error-message"></p>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input id="password" type="text" name="password">
+      <p id="password-error" class="error-message"></p>
+    </div>
+    <button type="submit">Sign Up</button>
+    </form>
 </div>
 <script src="signup.js"></script>

@@ -1,20 +1,18 @@
-<nav>
-  <div class="logojk">
-    <a href="/"><img src="logo2.png" alt="logo"></a>
-  </div>
-  <ul class="nav-links">
+<nav class="navbar navbar-expand-lg">
+  <a class="navbar-brand" href="/"><img src="logo2.png" alt="logo" style="width: 200px;"></a>
+  <button style="background-color: white;" class="navbar-toggler" type="button" data-toggle="collapse"
+    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+    aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-    <li><a href="/"><i class="fa fa-home"></i>Home</a></li>
-    <li><a href="/rentals"><i class="fa fa-bed"></i>Rentals</a></li>
-    {{#if isUser}}
-    {{else}}
-  <li><a href="/sign-up"><i class="fa fa-share"></i>Sign Up</a></li>
-  <li><a href="/log-in"><i class="fa fa-check"></i>Log In</a></li>
-    {{/if}}
-  </ul>
-  <div class="format">
-    <div class="first"></div>
-    <div class="second"></div>
-    <div class="third"></div>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      {{#navLink "/"}}Home{{/navLink}}
+      {{#navLink "/rentals"}}Rentals{{/navLink}}
+      {{#navLink "/sign-up"}}Sign Up{{/navLink}}
+      {{#navLink "/log-in"}}Log In{{/navLink}}
+
+      </ul>
   </div>
 </nav>
