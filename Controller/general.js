@@ -7,20 +7,31 @@ const generalController = {
     home: (req, res) => {
         res.render('home', {
             featuredRentals: getFeaturedRentals(),
-            authenticated: req.session.authenticated 
+            authenticated: req.session.authenticated,
+            isCustomer: req.session.role === "Customer"
         });
     },
 
     welcome: (req, res) => {
-        res.render('welcome', {
-            authenticated: req.session.authenticated 
-        });
+        if (req.session.authenticated) {
+            res.render('welcome', {
+                authenticated: req.session.authenticated,
+                isCustomer: req.session.role === "Customer"
+            });
+        } else {
+            res.redirect("/");
+        }
     },
-
     signUp: (req, res) => {
-        res.render('sign-up', {
-            authenticated: req.session.authenticated 
-        });
+        if (req.session.authenticated) {
+            res.redirect("/");
+        } else {
+            res.render('sign-up', {
+                authenticated: req.session.authenticated,
+                isCustomer: req.session.role === "Customer"
+            }); 
+        }
+
     },
     signUpPost: async (req, res) => {
         const fName = req?.body?.fName;
@@ -107,22 +118,27 @@ const generalController = {
     },
     logOut: async (req, res) => {
         try {
-            const destroy = req.session.destroy(function (err) {
-            });
+            req.session.destroy(function (err) { return console.error(err); });
             res.locals.authenticated = undefined;
+            res.locals.role = undefined;
             res.redirect("/");
         } catch (error) {
             console.log("logOut:", error);
         }
     },
     logIn: (req, res) => {
+        if (req.session.authenticated) {
+            res.redirect("/");
+        } else
         res.render('log-in', {
-            authenticated: req.session.authenticated 
+            authenticated: req.session.authenticated,
+            isCustomer: req.session.role === "Customer"
         });
     },
     logInPost: async (req, res) => {
         const email = req?.body?.email;
         const password = req?.body?.password;
+        const role = req?.body?.role;
         var emailError = ""
         var passwordError = ""
         if (!email) {
@@ -140,7 +156,8 @@ const generalController = {
             if (user) {
                 bcrypt.compare(password, user?.password, function (err, bcrypt) {
                     if (bcrypt) {
-                        req.session.authenticated = user
+                        req.session.authenticated = user;
+                        req.session.role = role;
                         res.send({
                             status: 200,
                             message: "success !!"
@@ -170,6 +187,21 @@ const generalController = {
                 password: passwordError,
             });
         }
+    },
+    cart: (req, res) => {
+        if (req.session.role !== "Customer") {
+            res.render('rentals', {
+                rentalsByCity: getRentalsByCityAndProvince(),
+                authenticated: req.session.authenticated,
+                isCustomer: req.session.role === "Customer"
+            });
+        } else {
+            res.send({
+                status: 401,
+                message: "access is denied"
+            });
+        }
+
     },
     notFound: (req, res) => {
         res.status(404).send("Page Not Found");

@@ -5,6 +5,7 @@ element.addEventListener("submit", function (event) {
     const formData = new FormData(element);
     const email = formData.get('email');
     const password = formData.get('password');
+    const role = formData.get('role');
     fetch("/log-in", {
         method: "POST",
         headers: {
@@ -12,7 +13,8 @@ element.addEventListener("submit", function (event) {
         },
         body: JSON.stringify({
             email,
-            password
+            password,
+            role
         })
     }).then((data) => data.json()).then((data) => {
         if (data?.status == 200) {

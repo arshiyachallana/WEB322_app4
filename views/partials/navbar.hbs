@@ -9,8 +9,12 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       {{#navLink "/"}}Home{{/navLink}}
-      {{#navLink "/rentals"}}Rentals{{/navLink}}
       {{#if authenticated}}
+      {{#if isCustomer}}
+      {{#navLink "/cart-dashboard"}}{{authenticated.user_Fname}}{{/navLink}}
+      {{else}}
+      {{#navLink "/rentals"}}{{authenticated.user_Fname}}{{/navLink}}
+      {{/if}}
       {{#navLink "/log-out"}}Log Out{{/navLink}}
       {{else}}
       {{#navLink "/sign-up"}}Sign Up{{/navLink}}
