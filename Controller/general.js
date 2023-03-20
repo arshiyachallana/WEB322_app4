@@ -6,19 +6,20 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const generalController = {
     home: (req, res) => {
         res.render('home', {
-            featuredRentals: getFeaturedRentals()
+            featuredRentals: getFeaturedRentals(),
+            authenticated: req.session.authenticated 
         });
     },
 
     welcome: (req, res) => {
         res.render('welcome', {
-            isUser: true
+            authenticated: req.session.authenticated 
         });
     },
 
     signUp: (req, res) => {
         res.render('sign-up', {
-            title: 'Sign Up'
+            authenticated: req.session.authenticated 
         });
     },
     signUpPost: async (req, res) => {
@@ -104,9 +105,19 @@ const generalController = {
             });
         }
     },
+    logOut: async (req, res) => {
+        try {
+            const destroy = req.session.destroy(function (err) {
+            });
+            res.locals.authenticated = undefined;
+            res.redirect("/");
+        } catch (error) {
+            console.log("logOut:", error);
+        }
+    },
     logIn: (req, res) => {
         res.render('log-in', {
-            title: 'Log In'
+            authenticated: req.session.authenticated 
         });
     },
     logInPost: async (req, res) => {
@@ -129,7 +140,7 @@ const generalController = {
             if (user) {
                 bcrypt.compare(password, user?.password, function (err, bcrypt) {
                     if (bcrypt) {
-                        req.session.user = user
+                        req.session.authenticated = user
                         res.send({
                             status: 200,
                             message: "success !!"

@@ -39,7 +39,7 @@ app.use(express.static('js'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 var store = new MongoDBStore({
-  uri: 'mongodb+srv://Jkaur5370:Jasprit%401@web322jas-2231.lqfqtpc.mongodb.net/web322Jas-2231',
+  uri: process.env.mongodbURL,
   collection: 'users'
 });
 store.on('error', function (error) {
@@ -64,6 +64,7 @@ app.get('/sign-up', generalController.signUp);
 app.post('/sign-up', generalController.signUpPost);
 app.get('/log-in', generalController.logIn);
 app.post('/log-in', generalController.logInPost);
+app.get('/log-out', generalController.logOut);
 app.get('/rentals', rentalsController.rentals);
 app.use(generalController.notFound);
 const HTTP_PORT = process.env.PORT || 8080;

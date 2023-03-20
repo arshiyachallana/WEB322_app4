@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
-mongoose.connect('mongodb+srv://Jkaur5370:Jasprit%401@web322jas-2231.lqfqtpc.mongodb.net/web322Jas-2231');
+import * as dotenv from 'dotenv';
+dotenv.config()
+mongoose.connect(process.env.mongodbURL);
 const userSchema = new mongoose.Schema({
     user_Fname: String,
     user_Lname: String,

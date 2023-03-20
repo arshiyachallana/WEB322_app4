@@ -16,7 +16,6 @@ element.addEventListener("submit", function (event) {
         })
     }).then((data) => data.json()).then((data) => {
         if (data?.status == 200) {
-            localStorage.setItem("user", email)
             window.location.href = '/';
             return
         } else {
