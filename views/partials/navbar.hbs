@@ -11,9 +11,9 @@
       {{#navLink "/"}}Home{{/navLink}}
       {{#if authenticated}}
       {{#if isCustomer}}
-      {{#navLink "/cart-dashboard"}}{{authenticated.user_Fname}}{{/navLink}}
+      {{#navLink "/cart"}}{{authenticated.user_Fname}}{{/navLink}}
       {{else}}
-      {{#navLink "/rentals"}}{{authenticated.user_Fname}}{{/navLink}}
+      {{#navLink "/rentals/list"}}{{authenticated.user_Fname}}{{/navLink}}
       {{/if}}
       {{#navLink "/log-out"}}Log Out{{/navLink}}
       {{else}}

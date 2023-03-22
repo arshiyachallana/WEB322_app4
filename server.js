@@ -65,8 +65,9 @@ app.post('/sign-up', generalController.signUpPost);
 app.get('/log-in', generalController.logIn);
 app.post('/log-in', generalController.logInPost);
 app.get('/log-out', generalController.logOut);
+app.get('/rentals/list', rentalsController.list);
 app.get('/rentals', rentalsController.rentals);
-app.get('/cart-dashboard', generalController.cart);
+app.get('/cart', generalController.cart);
 app.use(generalController.notFound);
 const HTTP_PORT = process.env.PORT || 8080;
 function onHttpStart() {

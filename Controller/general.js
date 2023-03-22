@@ -121,7 +121,7 @@ const generalController = {
             req.session.destroy(function (err) { return console.error(err); });
             res.locals.authenticated = undefined;
             res.locals.role = undefined;
-            res.redirect("/");
+            res.redirect("/log-in");
         } catch (error) {
             console.log("logOut:", error);
         }
@@ -189,9 +189,8 @@ const generalController = {
         }
     },
     cart: (req, res) => {
-        if (req.session.role !== "Customer") {
-            res.render('rentals', {
-                rentalsByCity: getRentalsByCityAndProvince(),
+        if (req.session.role === "Customer") {
+            res.render('cart', {
                 authenticated: req.session.authenticated,
                 isCustomer: req.session.role === "Customer"
             });

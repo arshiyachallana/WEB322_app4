@@ -18,7 +18,12 @@ element.addEventListener("submit", function (event) {
         })
     }).then((data) => data.json()).then((data) => {
         if (data?.status == 200) {
-            window.location.href = '/';
+            if (role === 'Customer') {
+                window.location.href = '/cart';
+            } else {
+                window.location.href = '/rentals/list';
+            }
+
             return
         } else {
             const emailErr = document.getElementById('email-error');
